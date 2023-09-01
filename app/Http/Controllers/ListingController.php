@@ -48,11 +48,45 @@ class ListingController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+        $formFields['user_id'] = auth()->id();
+
         Listing::create($formFields);
 
         return redirect('/');
     }
 
+    // Show Edit Form
+    public function edit(Listing $listing) {
+        
+        return view('listings.edit', ['listing' => $listing]);
+    }
 
+    // Update Listings data
+    public function update(Request $request, Listing $listing) {
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required'],
+            'loacation' => 'required',
+            'website' => 'required', 
+            'email' => ['required', 'email'], // must be formated as email
+            'tags' => 'required',
+            'description' => 'required'
+        ]);
 
+        if($request->hasFile('logo')){
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $listing->update($formFields);
+
+        return back();
+    }
+
+    // Delete Listing
+    public function destroy(Listing $listing) {
+        $listing->delete();
+
+        return redirect('/');
+
+    }
 }

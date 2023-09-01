@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\ListingController;
+use App\Models\Listing;
 use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +35,41 @@ Route::get('/', [ListingController::class, 'index']);
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
 // Show Create Form
-Route::get('/listings/create', [ListingController::class, 'create']);
+Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
 
-// Show Store Data
-Route::post('/listings', [ListingController::class, 'store']);
+// Store Listing Data
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
+
+// Show Edit Form
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
+
+// Update Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
+
+// Delete Listing
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
 
+//Product
+// Show list all
+Route::get('/products', [ProductController::class, 'index']);
 
+
+//SHOW REGISTER/CREATE FORM
+Route::get('/register', [UserController::Class, 'create'])->middleware('guest');
+
+//Create new user
+Route::post('/users', [UserController::class, 'store']);
+
+// Log user out
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+
+// Show route
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+// Log in user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 // // 19:34 Wildcard Endpoint
 // // ?use of Network , status, Header, 

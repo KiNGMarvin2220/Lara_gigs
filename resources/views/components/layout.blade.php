@@ -12,30 +12,67 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <!-- Include Owl Carousel CSS and JS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
                 theme: {
                     extend: {
                         colors: {
-                            laravel: "#ef3b2d",
+                            laravel: "#1DB954",
                         },
                     },
                 },
             };
         </script>
+        <script>
+            $(document).ready(function () {
+                $('.owl-carousel').owlCarousel({
+                    items: 1, // Number of items to show at once
+                    loop: true, // Infinite loop
+                    autoplay: true, // Auto-play the carousel
+                    autoplayTimeout: 2000, // Time between slides in milliseconds (4 seconds in this case)
+                    autoplayHoverPause: true, // Pause on hover
+                    margin: 0 // Space between items
+                });
+            });
+        </script>
+        
         <title>LaraGigs | Find Laravel Jobs & Projects</title>
     </head>
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-4">
             <a href="/"><img class="w-24" src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
             <ul class="flex space-x-6 mr-6 text-lg">
-                <li>
-                    <a href="register.html" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
-                </li>
-                <li>
-                    <a href="login.html" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>Login</a>
-                </li>
+                @auth
+                    <li>
+                    <span class="font-bold uppercase">Welcome {{auth()->user()->name}}</span>
+                    </li>
+                    <li>
+                        <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>Manage Listings</a>
+                    </li>
+                    <li>
+                        <form method="POST" class="inline" action="/logout">
+                        @csrf
+                        <button type="submit">
+                            <i class="fa-solid fa-door-closs"></i>
+                            logout
+                        </button>
+                        </form>
+                    </li>
+                @else
+                    <li>
+                        <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
+                    </li>
+                    <li>
+                        <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>Login</a>
+                    </li>
+                @endauth
             </ul>
         </nav>
 
