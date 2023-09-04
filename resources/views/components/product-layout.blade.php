@@ -21,7 +21,7 @@
   <body>
     <div class="amazon-header">
       <div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
+        <a href="/" class="header-link">
           <img class="amazon-logo"
             src="{{ asset('images/amazon-logo-white.png') }}">
           <img class="amazon-mobile-logo"
@@ -29,13 +29,15 @@
         </a>
       </div>
 
-      <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
+      <form action="/products" class="AHMS">
+        <div class="amazon-header-middle-section">
+          <input name="search" class="search-bar" type="text" placeholder="Search">
 
-        <button class="search-button">
-          <img class="search-icon" src="{{ asset('images/icons/search-icon.png') }}">
-        </button>
-      </div>
+          <button type="submit" class="search-button">
+            <img class="search-icon" src="{{ asset('images/icons/search-icon.png') }}">
+          </button>
+        </div>
+      </form>
 
       <div class="amazon-header-right-section">
         <a class="orders-link header-link" href="orders.html">
@@ -50,7 +52,7 @@
         </a>
       </div>
     </div>
-
+    
         <main>
           {{$slot}}
         </main>

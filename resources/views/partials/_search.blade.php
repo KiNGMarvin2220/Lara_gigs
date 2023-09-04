@@ -16,7 +16,7 @@
                 type="submit"
                 class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600"
             >
-                Search
+                sucks
             </button>
         </div>
     </div>

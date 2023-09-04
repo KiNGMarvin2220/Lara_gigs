@@ -11,7 +11,8 @@ class ProductController extends Controller
         // Show all Listing
         public function index() {
             return view('products.index', [
-                'products' => Product::latest()->get(),
+                'products' => Product::latest()->filter
+                (request(['tag', 'search']))->get(),
                 'cartNum' => 5,
             ]);
         }
