@@ -54,7 +54,6 @@ Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->mid
 // Show list all
 Route::get('/products', [ProductController::class, 'index']);
 
-
 //SHOW REGISTER/CREATE FORM
 Route::get('/register', [UserController::Class, 'create'])->middleware('guest');
 

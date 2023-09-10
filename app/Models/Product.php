@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
     
+    protected $fillable = ['name', 'image_in', 'image_out', 'tags', 'type', 'price', 'count', 'star', 'description'];
+
     public function scopeFilter($query, array $filters)
     {
         // if($filters['tag'] ?? false) {
